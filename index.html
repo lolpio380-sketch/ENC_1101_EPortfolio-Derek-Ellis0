@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Derek Ellis — ENC 1101</title>
+
+<style>
+/* =========================================================
+   DEREK ELLIS — ENC 1101 EPORTFOLIO
+   Original visual system:
+   Chess + DAW + futuristic underground editorial
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --black: #080808;
+    --black2: #0e0e0e;
+    --panel: #121212;
+    --panel2: #171717;
+    --white: #f1eee7;
+    --muted: #969696;
+    --line: #292929;
+    --red: #ff3b22;
+    --red2: #b51f12;
+    --green: #76ff68;
+    --yellow: #ffd447;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: Inter, sans-serif;
+    overflow-x: hidden;
+}
+
+/* ---------- GRAIN / CRT ---------- */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: .035;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            #fff 3px
+        );
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 998;
+    opacity: .05;
+
+    background-image:
+        radial-gradient(#fff 1px, transparent 1px);
+
+    background-size: 5px 5px;
+}
+
+/* ---------- CURSOR ---------- */
+
+.cursor {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    transform: translate(-50%, -50%);
+    transition: width .2s, height .2s, background .2s;
+}
+
+.cursor.big {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,59,34,.08);
+}
+
+/* ---------- TOP BAR ---------- */
+
+.topbar {
+    height: 62px;
+    border-bottom: 1px solid var(--line);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 30px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+
+    background: rgba(8,8,8,.88);
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--red);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    transition: .2s;
+}
+
+nav a:hover {
+    color: var(--red);
+}
+
+/* ---------- GENERAL ---------- */
+
+section {
+    position: relative;
+    padding: 130px 7vw;
+    border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--red);
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(45px, 8vw, 120px);
+    line-height: .85;
+    letter-spacing: -5px;
+}
+
+.section-number {
+    position: absolute;
+    top: 35px;
+    right: 7vw;
+
+    font-family: "DM Mono", monospace;
+    color: #444;
+    font-size: 12px;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    min-height: 100vh;
+    padding-top: 150px;
+
+    display: grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 60px;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    right: -250px;
+    top: 100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,59,34,.16),
+            transparent 65%
+        );
+
+    filter: blur(30px);
+}
+
+.hero h1 {
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+
+    font-size: clamp(70px, 12vw, 180px);
+    line-height: .77;
+    letter-spacing: -8px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1px #ddd;
+}
+
+.hero h1 .red {
+    color: var(--red);
+}
+
+.hero-sub {
+    margin-top: 35px;
+    max-width: 580px;
+
+    font-size: 16px;
+    line-height: 1.8;
+    color: #aaa;
+}
+
+.hero-meta {
+    margin-top: 30px;
+
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    border: 1px solid #343434;
+    padding: 9px 12px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+
+    color: #aaa;
+}
+
+.tag.active {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* ---------- FAKE DAW ---------- */
+
+.daw {
+    background: #101010;
+    border: 1px solid #303030;
+
+    box-shadow:
+        20px 20px 0 #151515,
+        0 30px 80px rgba(0,0,0,.5);
+
+    transform: rotate(2deg);
+
+    position: relative;
+    z-index: 2;
+}
+
+.daw-header {
+    height: 40px;
+
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 12px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+}
+
+.daw-title {
+    color: #ddd;
+}
+
+.daw-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.control {
+    width: 24px;
+    height: 20px;
+
+    border: 1px solid #333;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 8px;
+}
+
+.control.record {
+    color: var(--red);
+}
+
+.daw-body {
+    padding: 15px;
+}
+
+.track {
+    height: 42px;
+    margin-bottom: 6px;
+
+    display: grid;
+    grid-template-columns: 80px 1fr;
+
+    border: 1px solid #252525;
+}
+
+.track-name {
+    background: #151515;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    color: #aaa;
+}
+
+.track-wave {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #181818 0px,
+            #181818 30px,
+            #222 31px
+        );
+}
+
+.wave {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 50%;
+
+    height: 2px;
+
+    background: var(--red);
+
+    box-shadow:
+        10px -6px 0 var(--red),
+        20px 5px 0 var(--red),
+        30px -10px 0 var(--red),
+        40px 3px 0 var(--red),
+        50px -5px 0 var(--red),
+        60px 9px 0 var(--red);
+}
+
+.track:nth-child(2) .wave {
+    background: #aaa;
+}
+
+.track:nth-child(3) .wave {
+    background: var(--yellow);
+}
+
+.track:nth-child(4) .wave {
+    background: var(--green);
+}
+
+.playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+
+    background: var(--red);
+
+    animation: playhead 4s linear infinite;
+}
+
+@keyframes playhead {
+    from { left: 0; }
+    to { left: 100%; }
+}
+
+.mixer {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+.meter {
+    height: 75px;
+
+    background: #0b0b0b;
+    border: 1px solid #292929;
+
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.meter::after {
+    content: "";
+
+    width: 100%;
+    height: 65%;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            var(--green) 0 4px,
+            transparent 4px 8px
+        );
+}
+
+.meter:nth-child(2)::after {
+    height: 85%;
+}
+
+.meter:nth-child(3)::after {
+    height: 48%;
+}
+
+.meter:nth-child(4)::after {
+    height: 73%;
+}
+
+.meter:nth-child(5)::after {
+    height: 92%;
+}
+
+/* ---------- ABOUT ---------- */
+
+.about-grid {
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+}
+
+.about-text {
+    font-size: 19px;
+    line-height: 1.9;
+    color: #bbb;
+}
+
+.about-text strong {
+    color: white;
+}
+
+.info-panel {
+    border-top: 1px solid #333;
+}
+
+.info-row {
+    padding: 17px 0;
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+}
+
+.info-row span:first-child {
+    color: #666;
+}
+
+.info-row span:last-child {
+    color: #ddd;
+}
+
+/* ---------- STOCKFISH ---------- */
+
+.chess-section {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.015) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+}
+
+.chess-layout {
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 80px;
+
+    align-items: center;
+}
+
+.chessboard {
+    width: 420px;
+    height: 420px;
+
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+
+    border: 5px solid #191919;
+
+    box-shadow:
+        0 0 0 1px #444,
+        20px 20px 0 #121212;
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px;
+}
+
+.square.light {
+    background: #d7d0c0;
+    color: #111;
+}
+
+.square.dark {
+    background: #302f2b;
+    color: #eee;
+}
+
+.square.highlight {
+    box-shadow: inset 0 0 0 4px var(--red);
+}
+
+.chess-info {
+    max-width: 650px;
+}
+
+.quote {
+    font-family: "Archivo Black", sans-serif;
+
+    font-size: clamp(30px, 4vw, 58px);
+
+    line-height: 1;
+
+    margin-bottom: 30px;
+}
+
+.quote span {
+    color: var(--red);
+}
+
+.chess-info p {
+    color: #aaa;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.engine {
+    background: #0d0d0d;
+    border: 1px solid #303030;
+
+    padding: 20px;
+
+    font-family: "DM Mono", monospace;
+}
+
+.engine-top {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #272727;
+
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+
+    font-size: 9px;
+}
+
+.engine-score {
+    color: var(--red);
+    font-size: 22px;
+}
+
+.moves {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 5px;
+
+    font-size: 11px;
+}
+
+.move {
+    background: #151515;
+    padding: 10px;
+    color: #999;
+}
+
+.move span {
+    color: white;
+}
+
+/* ---------- WRITING PROCESS ---------- */
+
+.process {
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+
+    gap: 1px;
+
+    background: #333;
+}
+
+.process-card {
+    background: #0d0d0d;
+
+    min-height: 300px;
+
+    padding: 30px;
+
+    position: relative;
+
+    transition: .3s;
+}
+
+.process-card:hover {
+    background: #151515;
+    transform: translateY(-8px);
+}
+
+.process-number {
+    font-family: "DM Mono", monospace;
+    color: var(--red);
+    font-size: 11px;
+}
+
+.process-card h3 {
+    font-family: "Archivo Black", sans-serif;
+
+    font-size: 28px;
+
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.process-card p {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ---------- PIANO ROLL ---------- */
+
+.piano {
+    margin-top: 70px;
+
+    height: 280px;
+
+    border: 1px solid #303030;
+
+    background:
+        linear-gradient(#202020 1px, transparent 1px),
+        linear-gradient(90deg,#202020 1px,transparent 1px);
+
+    background-size: 100% 40px, 55px 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.piano::before {
+    content: "REVISION TIMELINE / PIANO ROLL";
+
+    position: absolute;
+
+    top: 10px;
+    left: 15px;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+
+    color: #555;
+}
+
+.note {
+    position: absolute;
+
+    height: 25px;
+
+    background: var(--red);
+
+    box-shadow: 0 0 15px rgba(255,59,34,.2);
+
+    transition: .3s;
+}
+
+.note:hover {
+    filter: brightness(1.4);
+    transform: scaleY(1.15);
+}
+
+.note1 { left: 5%; top: 60px; width: 18%; }
+.note2 { left: 18%; top: 100px; width: 25%; }
+.note3 { left: 37%; top: 140px; width: 14%; background: var(--yellow); }
+.note4 { left: 52%; top: 180px; width: 22%; }
+.note5 { left: 70%; top: 100px; width: 24%; background: var(--green); }
+.note6 { left: 80%; top: 60px; width: 13%; }
+
+/* ---------- ARTIFACTS ---------- */
+
+.artifacts {
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 15px;
+}
+
+.artifact {
+    min-height: 280px;
+
+    border: 1px solid #2c2c2c;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+.artifact::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -50px;
+    bottom: -50px;
+
+    border-radius: 50%;
+
+    border: 1px solid #333;
+}
+
+.artifact:hover {
+    border-color: #555;
+    transform: translateY(-5px);
+}
+
+.artifact-top {
+    display: flex;
+    justify-content: space-between;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+
+    color: #666;
+}
+
+.artifact h3 {
+    font-family: "Archivo Black", sans-serif;
+
+    font-size: 28px;
+
+    text-transform: uppercase;
+}
+
+.artifact p {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.open {
+    display: inline-block;
+
+    width: max-content;
+
+    padding: 9px 12px;
+
+    border: 1px solid #333;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+
+    transition: .2s;
+}
+
+.open:hover {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+}
+
+/* ---------- PERSONAL ---------- */
+
+.personal-grid {
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+
+    gap: 15px;
+}
+
+.personal-card {
+    border: 1px solid #292929;
+    padding: 25px;
+    min-height: 240px;
+
+    position: relative;
+}
+
+.personal-card:nth-child(1) {
+    transform: translateY(20px);
+}
+
+.personal-card:nth-child(3) {
+    transform: translateY(-20px);
+}
+
+.personal-icon {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.personal-card h3 {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 22px;
+}
+
+.personal-card p {
+    margin-top: 12px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ---------- REFLECTION ---------- */
+
+.reflection {
+    min-height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.reflection::before {
+    content: "WRITE / MAKE / REVISE";
+
+    position: absolute;
+
+    font-family: "Archivo Black", sans-serif;
+
+    font-size: 17vw;
+
+    color: rgba(255,255,255,.025);
+
+    white-space: nowrap;
+
+    left: -3vw;
+    bottom: 3vw;
+}
+
+.reflection-text {
+    max-width: 850px;
+
+    font-size: clamp(22px,3vw,42px);
+
+    line-height: 1.35;
+
+    position: relative;
+    z-index: 2;
+}
+
+.reflection-text span {
+    color: var(--red);
+}
+
+.signature {
+    margin-top: 50px;
+
+    font-family: "DM Mono", monospace;
+
+    color: #666;
+    font-size: 11px;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+    min-height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 40px 7vw;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    color: #555;
+}
+
+footer strong {
+    color: #aaa;
+}
+
+/* ---------- REVEAL ---------- */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width: 900px) {
+
+    nav {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .daw {
+        transform: none;
+    }
+
+    .about-grid,
+    .chess-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .chessboard {
+        width: min(420px, 90vw);
+        height: min(420px, 90vw);
+    }
+
+    .process {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .artifacts {
+        grid-template-columns: 1fr;
+    }
+
+    .personal-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media(max-width: 600px) {
+
+    section {
+        padding: 100px 6vw;
+    }
+
+    .hero h1 {
+        font-size: 21vw;
+        letter-spacing: -5px;
+    }
+
+    .process,
+    .personal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .personal-card:nth-child(1),
+    .personal-card:nth-child(3) {
+        transform: none;
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .moves {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+        DEREK<span>_</span>ELLIS / 1101
+    </div>
+
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#stockfish">STOCKFISH</a>
+        <a href="#process">PROCESS</a>
+        <a href="#artifacts">WORK</a>
+        <a href="#reflection">REFLECTION</a>
+    </nav>
+
+    <div class="status">
+        <div class="status-dot"></div>
+        PORTFOLIO ONLINE
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero" id="home">
+
+    <div>
+
+        <div class="eyebrow">
+            ENC 1101 / FALL 2026 / PERSONAL EPORTFOLIO
+        </div>
+
+        <h1>
+            DEREK<br>
+            <span class="outline">ELLIS</span><br>
+            <span class="red">WRITES.</span>
+        </h1>
+
+        <p class="hero-sub">
+            This is a collection of what I made, changed, learned,
+            and figured out during ENC 1101. Part writing portfolio,
+            part personal workspace, and part evidence that I actually
+            got better at putting my thoughts into words.
+        </p>
+
+        <div class="hero-meta">
+            <div class="tag active">ENC 1101</div>
+            <div class="tag">STOCKFISH</div>
+            <div class="tag">CHESS</div>
+            <div class="tag">MUSIC</div>
+            <div class="tag">REVISION</div>
+        </div>
+
+    </div>
+
+
+    <!-- FAKE DAW -->
+
+    <div class="daw">
+
+        <div class="daw-header">
+
+            <div class="daw-title">
+                WRITING_SESSION_1101
+            </div>
+
+            <div class="daw-controls">
+                <div class="control">■</div>
+                <div class="control">▶</div>
+                <div class="control record">●</div>
+            </div>
+
+        </div>
+
+        <div class="daw-body">
+
+            <div class="track">
+                <div class="track-name">IDEA</div>
+                <div class="track-wave">
+                    <div class="wave"></div>
+                    <div class="playhead"></div>
+                </div>
+            </div>
+
+            <div class="track">
+                <div class="track-name">DRAFT</div>
+                <div class="track-wave">
+                    <div class="wave"></div>
+                    <div class="playhead"></div>
+                </div>
+            </div>
+
+            <div class="track">
+                <div class="track-name">FEEDBACK</div>
+                <div class="track-wave">
+                    <div class="wave"></div>
+                    <div class="playhead"></div>
+                </div>
+            </div>
+
+            <div class="track">
+                <div class="track-name">REVISION</div>
+                <div class="track-wave">
+                    <div class="wave"></div>
+                    <div class="playhead"></div>
+                </div>
+            </div>
+
+            <div class="mixer">
+
+                <div class="meter"></div>
+                <div class="meter"></div>
+                <div class="meter"></div>
+                <div class="meter"></div>
+                <div class="meter"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+     ========================================================= -->
+
+<section id="about">
+
+    <div class="section-number">01 / ABOUT</div>
+
+    <div class="eyebrow">WHO IS ACTUALLY BEHIND THIS?</div>
+
+    <div class="section-title">
+        NOT JUST<br>
+        A GRADE.
+    </div>
+
+    <div class="about-grid reveal">
+
+        <div class="about-text">
+
+            <p>
+                I'm <strong>Derek Ellis</strong>, and this portfolio
+                documents my experience in ENC 1101.
+            </p>
+
+            <br>
+
+            <p>
+                Before this class, I mostly thought of writing as
+                something you finished and turned in. During this
+                semester, I started looking at it more like a process.
+                You make something, look at it again, find what is
+                wrong, and change it.
+            </p>
+
+            <br>
+
+            <p>
+                That idea actually connects with things I already like:
+                making music, playing chess, and messing around with
+                ideas until they finally work.
+            </p>
+
+        </div>
+
+
+        <div class="info-panel">
+
+            <div class="info-row">
+                <span>NAME</span>
+                <span>DEREK ELLIS</span>
+            </div>
+
+            <div class="info-row">
+                <span>COURSE</span>
+                <span>ENC 1101</span>
+            </div>
+
+            <div class="info-row">
+                <span>PROFESSOR</span>
+                <span>SIDNEY TURNER</span>
+            </div>
+
+            <div class="info-row">
+                <span>SEMESTER</span>
+                <span>FALL 2026</span>
+            </div>
+
+            <div class="info-row">
+                <span>CURRENT MODE</span>
+                <span>REVISING</span>
+            </div>
+
+            <div class="info-row">
+                <span>MAIN PROJECT</span>
+                <span>STOCKFISH</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STOCKFISH
+     ========================================================= -->
+
+<section class="chess-section" id="stockfish">
+
+    <div class="section-number">02 / STOCKFISH</div>
+
+    <div class="eyebrow">PERSONAL ESSAY / THE GAME THAT STARTED IT</div>
+
+    <div class="section-title">
+        FOUR<br>
+        MOVES.
+    </div>
+
+
+    <div class="chess-layout reveal">
+
+        <!-- CHESSBOARD -->
+
+        <div class="chessboard">
+
+            <!-- 8 -->
+            <div class="square light">♜</div>
+            <div class="square dark">♞</div>
+            <div class="square light">♝</div>
+            <div class="square dark">♛</div>
+            <div class="square light">♚</div>
+            <div class="square dark">♝</div>
+            <div class="square light">♞</div>
+            <div class="square dark">♜</div>
+
+            <!-- 7 -->
+            <div class="square dark">♟</div>
+            <div class="square light">♟</div>
+            <div class="square dark">♟</div>
+            <div class="square light">♟</div>
+            <div class="square dark">♟</div>
+            <div class="square light">♟</div>
+            <div class="square dark">♟</div>
+            <div class="square light">♟</div>
+
+            <!-- 6 -->
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+
+            <!-- 5 -->
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+
+            <!-- 4 -->
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+
+            <!-- 3 -->
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+            <div class="square dark"></div>
+            <div class="square light"></div>
+
+            <!-- 2 -->
+            <div class="square light">♙</div>
+            <div class="square dark">♙</div>
+            <div class="square light">♙</div>
+            <div class="square dark">♙</div>
+            <div class="square light">♙</div>
+            <div class="square dark">♙</div>
+            <div class="square light">♙</div>
+            <div class="square dark">♙</div>
+
+            <!-- 1 -->
+            <div class="square dark">♖</div>
+            <div class="square light">♘</div>
+            <div class="square dark">♗</div>
+            <div class="square light">♕</div>
+            <div class="square dark">♔</div>
+            <div class="square light">♗</div>
+            <div class="square dark">♘</div>
+            <div class="square light">♖</div>
+
+        </div>
+
+
+        <div class="chess-info">
+
+            <div class="quote">
+                "I lost my first real chess game in
+                <span>four moves.</span>"
+            </div>
+
+            <p>
+                My personal essay starts with a chess game in
+                Mr. Moore's elementary school classroom.
+                I walked into the game already assuming that being
+                academically gifted meant I would probably be good
+                at chess too.
+            </p>
+
+            <p>
+                I was wrong.
+            </p>
+
+            <p>
+                The game ended almost immediately. But the interesting
+                part wasn't losing. It was realizing that knowing
+                something academically doesn't automatically mean
+                you know how to do it.
+            </p>
+
+
+            <div class="engine">
+
+                <div class="engine-top">
+                    <span>STOCKFISH_ANALYSIS</span>
+                    <span>DEPTH 22</span>
+                </div>
+
+                <div class="engine-score">
+                    -∞
+                </div>
+
+                <div class="moves">
+
+                    <div class="move">
+                        MOVE 01 — <span>e4</span>
+                    </div>
+
+                    <div class="move">
+                        MOVE 01 — <span>e5</span>
+                    </div>
+
+                    <div class="move">
+                        MOVE 02 — <span>Bc4</span>
+                    </div>
+
+                    <div class="move">
+                        MOVE 02 — <span>Qh5</span>
+                    </div>
+
+                    <div class="move">
+                        MOVE 03 — <span>...</span>
+                    </div>
+
+                    <div class="move">
+                        MOVE 04 — <span>CHECKMATE</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WRITING PROCESS
+     ========================================================= -->
+
+<section id="process">
+
+    <div class="section-number">03 / PROCESS</div>
+
+    <div class="eyebrow">THE DRAFT IS NOT THE FINISHED PRODUCT</div>
+
+    <div class="section-title">
+        IDEA →<br>
+        DRAFT →<br>
+        CHANGE.
+    </div>
+
+
+    <div class="process reveal">
+
+        <div class="process-card">
+
+            <div class="process-number">01</div>
+
+            <h3>IDEA</h3>
+
+            <p>
+                Start with something worth talking about.
+                For my personal essay, that was a chess game
+                that ended way faster than I expected.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">02</div>
+
+            <h3>DRAFT</h3>
+
+            <p>
+                Get the story down first. It doesn't have
+                to be perfect. The important part is having
+                something to work with.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">03</div>
+
+            <h3>FEEDBACK</h3>
+
+            <p>
+                Look at the writing from another perspective.
+                Repeated phrases, unclear sections, and
+                organization become easier to notice.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">04</div>
+
+            <h3>REVISION</h3>
+
+            <p>
+                Keep what works. Cut what doesn't.
+                Make the writing sound more natural and
+                make the point clearer.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- PIANO ROLL -->
+
+    <div class="piano reveal">
+
+        <div class="note note1"></div>
+        <div class="note note2"></div>
+        <div class="note note3"></div>
+        <div class="note note4"></div>
+        <div class="note note5"></div>
+        <div class="note note6"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ARTIFACTS
+     ========================================================= -->
+
+<section id="artifacts">
+
+    <div class="section-number">04 / WORK</div>
+
+    <div class="eyebrow">THE FILES BEHIND THE PORTFOLIO</div>
+
+    <div class="section-title">
+        MY<br>
+        WORK.
+    </div>
+
+
+    <div class="artifacts reveal">
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_001</span>
+                <span>EARLY</span>
+            </div>
+
+            <h3>First Draft</h3>
+
+            <p>
+                The original version of my personal essay.
+                This is where the main idea and story first
+                started taking shape.
+            </p>
+
+            <!-- CHANGE #1:
+                 Put your actual first draft link here. -->
+
+            <a href="#" class="open">
+                OPEN FILE →
+            </a>
+
+        </article>
+
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_002</span>
+                <span>FEEDBACK</span>
+            </div>
+
+            <h3>Peer Review</h3>
+
+            <p>
+                Feedback and notes that helped me see parts
+                of the essay that needed more explanation,
+                organization, or revision.
+            </p>
+
+            <!-- CHANGE #2:
+                 Put your peer review file/link here. -->
+
+            <a href="#" class="open">
+                OPEN FILE →
+            </a>
+
+        </article>
+
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_003</span>
+                <span>REVISION</span>
+            </div>
+
+            <h3>Revised Essay</h3>
+
+            <p>
+                The updated version of Stockfish after
+                working through feedback and changing
+                the structure and wording.
+            </p>
+
+            <!-- CHANGE #3:
+                 Put your revised essay link here. -->
+
+            <a href="#" class="open">
+                OPEN FILE →
+            </a>
+
+        </article>
+
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_004</span>
+                <span>CLASS</span>
+            </div>
+
+            <h3>Writing Center</h3>
+
+            <p>
+                Notes from working through the essay and
+                identifying specific areas where the writing
+                could become clearer.
+            </p>
+
+            <a href="#" class="open">
+                OPEN FILE →
+            </a>
+
+        </article>
+
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_005</span>
+                <span>PROCESS</span>
+            </div>
+
+            <h3>Before / After</h3>
+
+            <p>
+                A closer look at specific sentences and
+                sections that changed during revision.
+            </p>
+
+            <a href="#" class="open">
+                COMPARE →
+            </a>
+
+        </article>
+
+
+        <article class="artifact">
+
+            <div class="artifact-top">
+                <span>FILE_006</span>
+                <span>FINAL</span>
+            </div>
+
+            <h3>Reflection</h3>
+
+            <p>
+                My final reflection on how my writing changed
+                throughout ENC 1101 and what I am taking
+                with me from the course.
+            </p>
+
+            <a href="#reflection" class="open">
+                READ →
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PERSONAL INTERESTS
+     ========================================================= -->
+
+<section>
+
+    <div class="section-number">05 / OUTSIDE THE DRAFT</div>
+
+    <div class="eyebrow">THE STUFF THAT ACTUALLY INFLUENCES ME</div>
+
+    <div class="section-title">
+        MORE THAN<br>
+        WRITING.
+    </div>
+
+
+    <div class="personal-grid reveal">
+
+        <div class="personal-card">
+
+            <div class="personal-icon">♟</div>
+
+            <h3>CHESS</h3>
+
+            <p>
+                Strategy, mistakes, patience, and learning
+                that being smart doesn't mean you automatically
+                know what you're doing.
+            </p>
+
+        </div>
+
+
+        <div class="personal-card">
+
+            <div class="personal-icon">◉</div>
+
+            <h3>MUSIC</h3>
+
+            <p>
+                Making beats and experimenting with sound.
+                I like futuristic, aggressive, distorted,
+                and atmospheric production.
+            </p>
+
+        </div>
+
+
+        <div class="personal-card">
+
+            <div class="personal-icon">⌁</div>
+
+            <h3>FL STUDIO</h3>
+
+            <p>
+                Turning individual sounds into something that
+                actually works together is surprisingly similar
+                to revising a piece of writing.
+            </p>
+
+        </div>
+
+
+        <div class="personal-card">
+
+            <div class="personal-icon">+</div>
+
+            <h3>COLLEGE</h3>
+
+            <p>
+                Learning how to manage assignments, projects,
+                ideas, and everything else that comes with
+                being a college student.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL REFLECTION
+     ========================================================= -->
+
+<section class="reflection" id="reflection">
+
+    <div class="section-number">06 / REFLECTION</div>
+
+    <div class="eyebrow">
+        FINAL THOUGHTS / ENC 1101
+    </div>
+
+
+    <div class="reflection-text reveal">
+
+        <p>
+            I started this course thinking mostly about
+            <span>finishing assignments.</span>
+        </p>
+
+        <br>
+
+        <p>
+            I am leaving it thinking more about
+            <span>how I make them.</span>
+        </p>
+
+        <br>
+
+        <p>
+            Writing is not really that different from
+            making a beat or playing a game of chess.
+            You start with an idea, make a move, see what
+            happens, and sometimes realize you need to
+            go back and change something.
+        </p>
+
+        <br>
+
+        <p>
+            The first version doesn't have to be perfect.
+            It just has to give you something to work with.
+        </p>
+
+        <div class="signature">
+            — Derek Ellis / ENC 1101 / 2026
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+    <div>
+        <strong>DEREK ELLIS</strong><br>
+        ENC 1101 / FALL 2026
+    </div>
+
+    <div>
+        WRITE / MAKE / REVISE
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", e => {
+
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+});
+
+document.querySelectorAll("a, .artifact, .personal-card, .process-card, .note")
+.forEach(element => {
+
+    element.addEventListener("mouseenter", () => {
+        cursor.classList.add("big");
+    });
+
+    element.addEventListener("mouseleave", () => {
+        cursor.classList.remove("big");
+    });
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+const revealElements = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+
+        });
+
+    },
+    {
+        threshold: .15
+    }
+);
+
+revealElements.forEach(element => {
+    observer.observe(element);
+});
+
+
+/* =========================================================
+   CHESSBOARD SUBTLE HOVER
+   ========================================================= */
+
+const squares = document.querySelectorAll(".square");
+
+squares.forEach(square => {
+
+    square.addEventListener("mouseenter", () => {
+
+        square.style.filter = "brightness(1.18)";
+
+    });
+
+    square.addEventListener("mouseleave", () => {
+
+        square.style.filter = "";
+
+    });
+
+});
+
+
+/* =========================================================
+   DAW PLAYHEAD SPEED CHANGE
+   ========================================================= */
+
+const daw = document.querySelector(".daw");
+
+daw.addEventListener("mouseenter", () => {
+
+    document.querySelectorAll(".playhead").forEach(playhead => {
+        playhead.style.animationDuration = "1.8s";
+    });
+
+});
+
+daw.addEventListener("mouseleave", () => {
+
+    document.querySelectorAll(".playhead").forEach(playhead => {
+        playhead.style.animationDuration = "4s";
+    });
+
+});
+
+
+/* =========================================================
+   ARTIFACT BUTTONS
+   ========================================================= */
+
+document.querySelectorAll(".open").forEach(button => {
+
+    button.addEventListener("click", e => {
+
+        if(button.getAttribute("href") === "#") {
+
+            e.preventDefault();
+
+            alert(
+                "Replace this # link with the URL to your actual document, PDF, Google Drive file, or Canvas artifact."
+            );
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   SMALL PARALLAX EFFECT
+   ========================================================= */
+
+window.addEventListener("scroll", () => {
+
+    const scroll = window.scrollY;
+
+    const board = document.querySelector(".chessboard");
+
+    if(board) {
+        board.style.transform =
+            `translateY(${scroll * -0.015}px)`;
+    }
+
+});
+
+</script>
+
+</body>
+</html>
