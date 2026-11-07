@@ -1070,6 +1070,142 @@ footer strong {
         grid-template-columns: 1fr;
     }
 }
+   
+/* EMBEDDED ESSAY VIEWER */
+
+.essay-open {
+    background: transparent;
+    cursor: pointer;
+}
+
+.essay-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    background: #080808;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity .3s, transform .3s, visibility .3s;
+}
+
+.essay-viewer.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.essay-toolbar {
+    min-height: 88px;
+    padding: 15px 4vw;
+    border-bottom: 1px solid #292929;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.essay-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.essay-indicator {
+    width: 9px;
+    height: 9px;
+    background: #ff3b22;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff3b22;
+}
+
+.essay-label {
+    font: 9px "DM Mono", monospace;
+    color: #777;
+    letter-spacing: 2px;
+}
+
+#essayTitle {
+    font: 24px "Archivo Black", sans-serif;
+    color: #f1eee7;
+    margin-top: 5px;
+}
+
+.essay-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.essay-actions a,
+.essay-actions button {
+    padding: 12px 16px;
+    background: #141414;
+    border: 1px solid #333;
+    color: #eee;
+    font: 10px "DM Mono", monospace;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.essay-actions a:hover,
+.essay-actions button:hover {
+    background: #ff3b22;
+    border-color: #ff3b22;
+    color: white;
+}
+
+.essay-content {
+    flex: 1;
+    min-height: 0;
+    padding: 18px 4vw;
+    background: #101010;
+}
+
+#essayFrame {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #333;
+    background: white;
+}
+
+.essay-bottom {
+    padding: 13px 4vw;
+    border-top: 1px solid #292929;
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font: 9px "DM Mono", monospace;
+    letter-spacing: 1px;
+}
+
+body.essay-active {
+    overflow: hidden;
+}
+
+@media(max-width: 600px) {
+    .essay-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .essay-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .essay-content {
+        padding: 8px;
+    }
+
+    #essayTitle {
+        font-size: 19px;
+    }
+}
+
 </style>
 </head>
 
@@ -1588,45 +1724,46 @@ footer strong {
 
     <div class="artifacts reveal">
 
-        <article class="artifact">
+        
+<article class="artifact">
+    <div class="artifact-top">
+        <span>FILE_001</span>
+        <span>ESSAY 01</span>
+    </div>
 
-            <div class="artifact-top">
-                <span>FILE_001</span>
-                <span>EARLY</span>
-            </div>
+    <h3>Essay 01</h3>
 
-            <h3>First Draft</h3>
+    <p>
+        Read my first selected essay directly inside
+        my ENC 1101 writing portfolio.
+    </p>
 
-            <p>
-                The original version of my personal essay.
-                This is where the main idea and story first
-                started taking shape.
-            </p>
+    <button class="open essay-open" type="button"
+        data-doc="14pqHUKFSydoRdKyBtx662rq9g1ffp25B_Eatfhgv8hQ"
+        data-title="ESSAY 01">
+        READ ESSAY ↗
+    </button>
+</article>
 
-            <!-- CHANGE #1:
-                 Put your actual first draft link here. -->
+<article class="artifact">
+    <div class="artifact-top">
+        <span>FILE_002</span>
+        <span>ESSAY 02</span>
+    </div>
 
-            <a href="#" class="open">
-                OPEN FILE →
-            </a>
+    <h3>Essay 02</h3>
 
-        </article>
+    <p>
+        Explore my second selected essay without
+        leaving the ePortfolio website.
+    </p>
 
-
-        <article class="artifact">
-
-            <div class="artifact-top">
-                <span>FILE_002</span>
-                <span>FEEDBACK</span>
-            </div>
-
-            <h3>Peer Review</h3>
-
-            <p>
-                Feedback and notes that helped me see parts
-                of the essay that needed more explanation,
-                organization, or revision.
-            </p>
+    <button class="open essay-open" type="button"
+        data-doc="1CTo6DLAXkvxJ6gC2fd8TqbRxvpClMghUsdCP5eCmzOk"
+        data-title="ESSAY 02">
+        READ ESSAY ↗
+    </button>
+</article>
 
             <!-- CHANGE #2:
                  Put your peer review file/link here. -->
@@ -1885,6 +2022,45 @@ footer strong {
 </footer>
 
 
+<div id="essayViewer" class="essay-viewer"
+     role="dialog" aria-modal="true"
+     aria-labelledby="essayTitle"
+     aria-hidden="true">
+
+    <div class="essay-toolbar">
+        <div class="essay-heading">
+            <span class="essay-indicator"></span>
+            <div>
+                <span class="essay-label">ENC1101 / DOCUMENT VIEWER</span>
+                <h2 id="essayTitle">ESSAY 01</h2>
+            </div>
+        </div>
+
+        <div class="essay-actions">
+            <a id="essayExternal" href="#"
+               target="_blank" rel="noopener noreferrer">
+                OPEN ORIGINAL ↗
+            </a>
+            <button id="closeEssay" type="button"
+                    aria-label="Close essay viewer">
+                ✕ CLOSE
+            </button>
+        </div>
+    </div>
+
+    <div class="essay-content">
+        <iframe id="essayFrame"
+                title="Portfolio essay document"
+                referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+    </div>
+
+    <div class="essay-bottom">
+        <span>DE / WRITING ARCHIVE / 2026</span>
+        <span>ESC TO CLOSE</span>
+    </div>
+</div>
+
 <script>
 
 /* =========================================================
@@ -2026,6 +2202,83 @@ window.addEventListener("scroll", () => {
             `translateY(${scroll * -0.015}px)`;
     }
 
+});
+
+/* =========================================
+   INTERNAL ESSAY VIEWER
+   ========================================= */
+
+const essayViewer = document.getElementById("essayViewer");
+const essayFrame = document.getElementById("essayFrame");
+const essayTitle = document.getElementById("essayTitle");
+const essayExternal = document.getElementById("essayExternal");
+const closeEssayButton = document.getElementById("closeEssay");
+
+let previousFocus = null;
+
+document.querySelectorAll(".essay-open").forEach(button => {
+    button.addEventListener("click", () => {
+        const docId = button.dataset.doc;
+        const title = button.dataset.title;
+
+        previousFocus = document.activeElement;
+
+        essayTitle.textContent = title;
+
+        essayFrame.src =
+            `https://docs.google.com/document/d/${docId}/preview`;
+
+        essayExternal.href =
+            `https://docs.google.com/document/d/${docId}/edit`;
+
+        essayViewer.classList.add("active");
+        essayViewer.setAttribute("aria-hidden", "false");
+        document.body.classList.add("essay-active");
+
+        closeEssayButton.focus();
+    });
+});
+
+function closeEssayViewer() {
+    essayViewer.classList.remove("active");
+    essayViewer.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("essay-active");
+
+    // Stop the embedded document after closing.
+    essayFrame.removeAttribute("src");
+
+    if (previousFocus) {
+        previousFocus.focus();
+    }
+}
+
+closeEssayButton.addEventListener("click", closeEssayViewer);
+
+document.addEventListener("keydown", event => {
+    if (!essayViewer.classList.contains("active")) return;
+
+    if (event.key === "Escape") {
+        closeEssayViewer();
+    }
+
+    // Keep keyboard navigation within the viewer.
+    if (event.key === "Tab") {
+        const focusable = [...essayViewer.querySelectorAll(
+            'a[href], button:not([disabled]), iframe'
+        )];
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey &&
+                   document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
 });
 
 </script>
